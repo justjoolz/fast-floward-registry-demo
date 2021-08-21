@@ -10,12 +10,12 @@ import RegistryNFTContract from Registry.RegistryNFTContract
 transaction(recipient: Address, metadata: {String: String}) {
     
     // the tenant
-    let tenant: &RegistryNFTContract.Tenant
+    let tenant: &RegistryNFTContract.Tenant{RegistryNFTContract.ITenantMinter}
     let receiver: &RegistryNFTContract.Collection{NonFungibleToken.CollectionPublic}
 
     prepare(acct: AuthAccount) {
 
-        self.tenant = acct.borrow<&RegistryNFTContract.Tenant>(from: RegistryNFTContract.TenantStoragePath)
+        self.tenant = acct.borrow<&RegistryNFTContract.Tenant{RegistryNFTContract.ITenantMinter}>(from: RegistryNFTContract.TenantStoragePath)
                         ?? panic("Could not borrow the Tenant")
          // borrow the recipient's public NFT collection reference
         self.receiver = getAccount(recipient).getCapability(/public/NFTCollection)
