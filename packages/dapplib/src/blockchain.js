@@ -47,7 +47,7 @@ module.exports = class Blockchain {
         };
         let options = {
             roleInfo,
-            gasLimit: 300,
+            gasLimit: 999,
             decode: false
         }
 

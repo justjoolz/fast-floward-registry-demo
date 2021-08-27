@@ -35,7 +35,7 @@ module.exports = class DappLib {
 
   /********** Registry **********/
 
-  static async nftTenant(data) {
+  static async divisorsTenant(data) {
 
     let config = DappLib.getConfig();
     let result = await Blockchain.post({
@@ -44,8 +44,9 @@ module.exports = class DappLib {
         proposer: data.acct,
       }
     },
-      'registry_nft_tenant'
+      'registry_divisors_tenant'
     );
+
 
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
@@ -73,28 +74,11 @@ module.exports = class DappLib {
     }
   }
 
-  /********** NFT **********/
+  /********** Divisors **********/
 
-  static async provisionAccountNFT(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: data.acct,
-      }
-    },
-      'nft_provision_account'
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-  }
-
-  static async mintNFT(data) {
+  static async getDivisor(data) {
+    console.log(data)
+    console.log(data.n)
 
     let config = DappLib.getConfig();
     let result = await Blockchain.post({
@@ -103,10 +87,9 @@ module.exports = class DappLib {
         proposer: data.acct,
       }
     },
-      'nft_mint_nft',
+      'project_gimme_divisors',
       {
-        recipient: { value: data.recipient, type: t.Address },
-        metadata: { value: [{ key: 'name', value: data.nftName }], type: t.Dictionary({ key: t.String, value: t.String }) }
+        digit: { value: parseInt(12) /* parseInt(data.digit) */, type: t.Int }
       }
     );
 
@@ -117,115 +100,6 @@ module.exports = class DappLib {
     }
   }
 
-  static async transferNFT(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: data.giver,
-      }
-    },
-      'nft_transfer_nft',
-      {
-        id: { value: parseInt(data.id), type: t.UInt64 },
-        recipient: { value: data.recipient, type: t.Address }
-      }
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-  }
-
-  static async getNFTsInCollection(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.get({
-      config: config,
-      roles: {
-      }
-    },
-      'nft_get_nfts_in_collection',
-      {
-        acct: { value: data.acct, type: t.Address }
-      }
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_ARRAY,
-      label: 'NFTs in Collection',
-      result: result.callData
-    }
-  }
-
-  static async getNFTMetadata(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.get({
-      config: config,
-      roles: {
-      }
-    },
-      'nft_get_nft_metadata',
-      {
-        acct: { value: data.acct, type: t.Address },
-        id: { value: parseInt(data.id), type: t.UInt64 }
-      }
-    );
-    console.log(result.callData)
-    return {
-      type: DappLib.DAPP_RESULT_OBJECT,
-      label: 'NFT Metadata',
-      result: result.callData
-    }
-  }
-
-  /********** MARKETPLACE **********/
-
-  static async provisionAccountMarketplace(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: data.acct,
-      }
-    },
-      'marketplace_provision_account'
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-  }
-
-  static async listNFTForSale(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: data.acct,
-      }
-    },
-      "marketplace_list_nft_for_sale",
-      {
-        id: { value: parseInt(data.id), type: t.UInt64 },
-        price: { value: data.price, type: t.UFix64 }
-      }
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-
-  }
 
   static async buyNFT(data) {
 
@@ -249,9 +123,6 @@ module.exports = class DappLib {
       result: result.callData.transactionId
     }
   }
-
-
-
 
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DAPP LIBRARY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 

@@ -38,17 +38,18 @@ export default class NftHarness extends LitElement {
           </account-widget>
         </action-card>
       
-        <action-card title="NFT - Get NFT Tenant"
-          description="Get an instance of a Tenant from RegistryNFTContract to have your own data" action="nftTenant"
+        <action-card title="Get Divisor Tenant"
+          description="Get an instance of a Tenant from RegistryDigitDivisors to have your own data" action="divisorsTenant"
           method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
-      
-        <!-- NFT -->
-      
-        <action-card title="NFT - Provision Account" description="Set up a user account to handle NFTs"
-          action="provisionAccountNFT" method="post" fields="acct">
+        
+        <!-- Divisor -->
+        
+        <action-card title="Get Divisor" description="Get divisors for n"
+        action="getDivisor" method="post" fields="acct">
+          <text-widget field="digit" label="digit" placeholder="12"></text-widget>
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>

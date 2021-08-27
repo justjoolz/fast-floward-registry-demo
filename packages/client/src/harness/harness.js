@@ -39,7 +39,7 @@ export default class HarnessPage extends LitElement {
     return[
     {
         "name": "dao_core-nft",
-        "title": "Composable NFT Module",
+        "title": "Composable Divisors Module",
         "description": "DappStarter implementation of a base Composable NFT Project on Flow.",
         "category": "Non-fungible Tokens",
         "route": "/dao_core-nft"
